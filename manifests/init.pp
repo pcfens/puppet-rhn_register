@@ -35,7 +35,7 @@
 #   [*proxypass*]
 #     Password to use for the proxy server
 #   [*sslca*]
-#     Path to the SSL CA to use.  If needed, usually looks like
+#     Path to the SSL CA to use.  If needed, it usually looks like
 #     /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
 #   [*serverurl*]
 #     URL to the server to register with
