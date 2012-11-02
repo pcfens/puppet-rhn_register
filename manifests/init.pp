@@ -57,11 +57,6 @@ class rhn_register(
     default => '',
   }
 
-  $force_register = $rhn_register::force ? {
-    true    => '--force',
-    default => '',
-  }
-
   $proxy_login = $rhn_register::proxyuser ? {
     'undef' => '',
     default => "--proxyUser ${rhn_register::proxyuser} --proxyPassword ${rhn_register::proxypass}",
@@ -82,7 +77,13 @@ class rhn_register(
     default => "--serverUrl ${rhn_register::serverurl}",
   }
 
-  $command_args = "${rhn_register::profile_name} ${rhn_register::activation_key} ${rhn_register::rhn_login} ${rhn_register::send_hardware} ${rhn_register::send_packages} ${rhn_register::send_virtinfo} ${rhn_register::start_rhnsd} ${rhn_register::force_register} ${rhn_register::proxy_server} ${rhn_register::proxy_login} ${rhn_register::ssl_ca} ${rhn_register::server_url}"
+  $command_args = "${rhn_register::profile_name} ${rhn_register::activation_key} ${rhn_register::rhn_login} ${rhn_register::send_hardware} ${rhn_register::send_packages} ${rhn_register::send_virtinfo} ${rhn_register::start_rhnsd} ${rhn_register::proxy_server} ${rhn_register::proxy_login} ${rhn_register::ssl_ca} ${rhn_register::server_url}"
+
+  if $rhn_register::force {
+    exec { 'register_with_rhn':
+      command => "/usr/sbin/rhnreg_ks --force ${rhn_register::command_args}",
+    }
+  }
 
   exec { 'register_with_rhn':
     command => "/usr/sbin/rhnreg_ks ${rhn_register::command_args}",
