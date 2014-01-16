@@ -1,0 +1,3 @@
+fixtures:
+  symlinks:
+    rhn_register: "#{source_dir}"

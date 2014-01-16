@@ -1,0 +1,7 @@
+name    'pcfens/rhn_register'
+version '0.1.0'
+author 'pcfens'
+license 'Apache License, Version 2.0'
+summary 'A module to register a server with RHN, Spacewalk, or Satellite.'
+description 'A (very simple) module designed to register a server with your local Spacewalk Server, Satellite Server, or the RedHat Network using the rhnreg_ks command.'
+project_page 'http://github.com/pcfens/puppet-rhn_register'
