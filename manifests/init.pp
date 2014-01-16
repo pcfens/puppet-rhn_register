@@ -57,22 +57,22 @@
 # Phil Fenstermacher <pcfens@wm.edu>
 #
 class rhn_register(
-  $profilename = 'undef',
-  $username = 'undef',
-  $password = 'undef',
-  $activationkey = 'undef',
-  $hardware = true,
-  $packages = true,
-  $virtinfo = true,
-  $rhnsd = true,
-  $force = false,
-  $proxy = 'undef',
-  $proxyuser = 'undef',
-  $proxypass = 'undef',
-  $sslca = 'undef',
-  $serverurl = 'undef',
+  $profilename   = undef,
+  $username      = undef,
+  $password      = undef,
+  $activationkey = undef,
+  $hardware      = true,
+  $packages      = true,
+  $virtinfo      = true,
+  $rhnsd         = true,
+  $force         = false,
+  $proxy         = undef,
+  $proxyuser     = undef,
+  $proxypass     = undef,
+  $sslca         = undef,
+  $serverurl     = undef,
 ){
-  if $::operatingsystem != 'RedHat' and $::operatingsystem != 'Solaris' {
+  if $::osfamily != 'RedHat' and $::operatingsystem != 'Solaris' {
     fail("You can't register ${::operatingsystem} with RHN or Satellite using this puppet module")
   }
 
