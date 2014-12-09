@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "pcfens",
   "summary": "Register a server with RHN, Spacewalk, or Satellite.",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "https://github.com/pcfens/puppet-rhn_register",
   "project_page": "https://github.com/pcfens/puppet-rhn_register",
   "issues_url": "https://github.com/pcfens/puppet-rhn_register/issues",
