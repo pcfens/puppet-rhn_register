@@ -1,0 +1,21 @@
+{
+  "name": "pcfens-rhn_register",
+  "version": "1.0.0",
+  "author": "pcfens",
+  "summary": "Register a server with RHN, Spacewalk, or Satellite.",
+  "license": "Apache 2.0",
+  "source": "https://github.com/pcfens/puppet-rhn_register",
+  "project_page": "https://github.com/pcfens/puppet-rhn_register",
+  "issues_url": "https://github.com/pcfens/puppet-rhn_register/issues",
+  "description": "A module to register a server with RHN, Spacewalk, or Satellite.",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5.0",
+        "6.0",
+        "7.0"
+      ]
+    }
+  ]
+}
