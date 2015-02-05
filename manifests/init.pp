@@ -57,7 +57,7 @@
 #
 # Phil Fenstermacher <pcfens@wm.edu>
 #
-class rhn_register(
+class rhn_register (
   $profilename   = undef,
   $username      = undef,
   $password      = undef,
