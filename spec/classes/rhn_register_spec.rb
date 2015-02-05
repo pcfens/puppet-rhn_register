@@ -16,18 +16,18 @@ describe 'rhn_register', :type => 'class' do
       it { should contain_exec('register_with_rhn').with(
         :command => '/usr/sbin/rhnreg_ks --username test --password test'
       ) }
+    end
 
-      context "with a server url defined" do
-        let :params do {
-          :username => 'test',
-          :password => 'test',
-          :serverurl => 'http://example.com/XMLRPC',
-        } end
+    context "with a server url defined" do
+      let :params do {
+        :username => 'test',
+        :password => 'test',
+        :serverurl => 'http://example.com/XMLRPC',
+      } end
 
-        it { should contain_exec('register_with_rhn').with(
-          :command => '/usr/sbin/rhnreg_ks --username test --password test --serverUrl http://example.com/XMLRPC'
-        ) }
-      end
+      it { should contain_exec('register_with_rhn').with(
+        :command => '/usr/sbin/rhnreg_ks --username test --password test --serverUrl http://example.com/XMLRPC'
+      ) }
     end
 
     context "without a username/password or activation key supplied" do
@@ -46,7 +46,7 @@ describe 'rhn_register', :type => 'class' do
       :username => 'test',
       :password => 'test',
     } end
-    
+
     it { expect { should raise_error(Puppet::Error, /You can't register Ubuntu with RHN or Satellite using this puppet moudle/) }}
 
   end
