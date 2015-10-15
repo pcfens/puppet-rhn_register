@@ -84,7 +84,7 @@ class rhn_register (
   $auto_attach   = true,
   $service_level = undef
 ){
-  if $::osfamily != 'RedHat' and $::operatingsystem != 'Solaris' {
+  if $::osfamily != 'RedHat' {
     fail("You can't register ${::operatingsystem} with RHN or Satellite using this puppet module")
   }
 
