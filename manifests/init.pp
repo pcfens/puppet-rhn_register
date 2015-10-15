@@ -81,45 +81,24 @@ class rhn_register (
     fail('Either an activation key or username/password is required to register')
   }
 
-  $profile_name = $rhn_register::profilename ? {
-    undef   => '',
-    default => " --profilename ${rhn_register::profilename}",
-  }
+  if $use_classic {
+    $command = '/usr/sbin/rhnreg_ks'
 
-  $rhn_login = $rhn_register::username ? {
-    undef   => '',
-    default => " --username ${rhn_register::username} --password ${rhn_register::password}",
-  }
-
-  $activation_key = $rhn_register::activationkey ? {
-    undef   => '',
-    default => " --activationkey ${rhn_register::activationkey}",
-  }
-
-  $send_hardware = $rhn_register::hardware ? {
-    false   => ' --nohardware',
-    default => '',
-  }
-
-  $send_packages = $rhn_register::packages ? {
-    false   => ' --nopackages',
-    default => '',
-  }
-
-  $send_virtinfo = $rhn_register::virtinfo ? {
-    false   => ' --novirtinfo',
-    default => '',
-  }
-
-  $start_rhnsd = $rhn_register::rhnsd ? {
-    false   => ' --norhnsd',
-    default => '',
-  }
-
-  $proxy_login = $rhn_register::proxyuser ? {
-    undef   => '',
-    default => " --proxyUser ${rhn_register::proxyuser} --proxyPassword ${rhn_register::proxypass}",
-  }
+    $arguments = {
+      'profilename'   => $rhn_register::profilename,
+      'activationkey' => $rhn_register::activationkey,
+      'username'      => $rhn_register::username,
+      'password'      => $rhn_register::password,
+      'nohardware'    => !$hardware,
+      'nopackages'    => !$packages,
+      'novirtinfo'    => !$virtinfo,
+      'norhnsd'       => !$rhnsd,
+      'proxyUser'     => $rhn_register::proxyuser,
+      'proxyPassword' => $rhn_register::proxypass,
+      'proxy'         => $rhn_register::proxy,
+      'sslCACert'     => $rhn_register::sslca,
+      'serverUrl'     => $rhn_register::serverurl,
+    }
 
   $proxy_server = $rhn_register::proxy ? {
     undef   => '',
@@ -136,15 +115,16 @@ class rhn_register (
     default => " --serverUrl ${rhn_register::serverurl}",
   }
 
-  $command_args = "${rhn_register::profile_name}${rhn_register::activation_key}${rhn_register::rhn_login}${rhn_register::send_hardware}${rhn_register::send_packages}${rhn_register::send_virtinfo}${rhn_register::start_rhnsd}${rhn_register::proxy_server}${rhn_register::proxy_login}${rhn_register::ssl_ca}${rhn_register::server_url}"
+  $final_args = delete_undef_values($arguments)
+  $command_args = command_args($final_args)
 
   if $rhn_register::force {
     exec { 'register_with_rhn':
-      command => "/usr/sbin/rhnreg_ks --force${rhn_register::command_args}",
+      command => "${command} --force ${rhn_register::command_args}",
     }
   } else {
     exec { 'register_with_rhn':
-      command => "/usr/sbin/rhnreg_ks${rhn_register::command_args}",
+      command => "${command}${rhn_register::command_args}",
       creates => '/etc/sysconfig/rhn/systemid',
     }
   }
