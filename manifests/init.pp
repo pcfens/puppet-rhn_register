@@ -72,12 +72,23 @@ class rhn_register (
   $proxypass     = undef,
   $sslca         = undef,
   $serverurl     = undef,
+
+  $use_classic   = false,
+  $insecure      = false,
+  $base_url      = undef,
+  $type          = undef,
+  $name          = undef,
+  $consumer_id   = undef,
+  $org           = undef,
+  $release       = undef,
+  $auto_attach   = true,
+  $service_level = undef
 ){
   if $::osfamily != 'RedHat' and $::operatingsystem != 'Solaris' {
     fail("You can't register ${::operatingsystem} with RHN or Satellite using this puppet module")
   }
 
-  if $rhn_register::username == undef and $rhn_register::activationkey == undef {
+  if $rhn_register::username == undef and $rhn_register::activationkey == undef or $activationkey == [] {
     fail('Either an activation key or username/password is required to register')
   }
 
@@ -100,19 +111,24 @@ class rhn_register (
       'serverUrl'     => $rhn_register::serverurl,
     }
 
-  $proxy_server = $rhn_register::proxy ? {
-    undef   => '',
-    default => " --proxy ${rhn_register::proxy}",
-  }
+  } elsif !$use_classic {
+    $command = 'subscription-manager register'
 
-  $ssl_ca = $rhn_register::sslca ? {
-    undef   => '',
-    default => " --sslCACert ${rhn_register::sslca}",
-  }
+    $arguments = {
+      'name'          => $rhn_register::name,
+      'proxyuser'     => $rhn_register::proxyuser,
+      'proxypassword' => $rhn_register::proxypass,
+      'insecure'      => $rhn_register::insecure,
+      'baseurl'       => $rhn_register::base_url,
+      'typeid'        => $rhn_register::type,
+      'consumerid'    => $rhn_register::consumer_id,
+      'org'           => $rhn_register::org,
+      'environment'   => $rhn_register::environment,
+      'release'       => $rhn_register::release,
+      'auto-attach'   => $rhn_register::auto_attach,
+      'servicelevel'  => $rhn_register::service_level,
+    }
 
-  $server_url = $rhn_register::serverurl ? {
-    undef   => '',
-    default => " --serverUrl ${rhn_register::serverurl}",
   }
 
   $final_args = delete_undef_values($arguments)
