@@ -1,5 +1,7 @@
 # rhn_register puppet module
 
+[![Build Status](https://travis-ci.org/pcfens/puppet-rhn_register.svg?branch=master)](https://travis-ci.org/pcfens/puppet-rhn_register)
+
 ## Overview
 
 Registers a machine with RHN or a satellite server.  If a machine
