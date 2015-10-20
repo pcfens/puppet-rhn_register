@@ -19,6 +19,9 @@
     }
   ],
   "dependencies": [
-
+    {
+      "name": "pcfens/command_args",
+      "version_requirement": ">= 0.0.1 < 1.0.0"
+    }
   ]
 }

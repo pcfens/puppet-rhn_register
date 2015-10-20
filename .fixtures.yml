@@ -1,3 +1,5 @@
 fixtures:
+  repositories:
+    command_args: "git://github.com/pcfens/puppet-command_args.git"
   symlinks:
     rhn_register: "#{source_dir}"

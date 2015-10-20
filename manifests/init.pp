@@ -77,7 +77,7 @@ class rhn_register (
   $insecure      = false,
   $base_url      = undef,
   $type          = undef,
-  $name          = undef,
+  $system_name   = undef,
   $consumer_id   = undef,
   $org           = undef,
   $release       = undef,
@@ -112,7 +112,7 @@ class rhn_register (
     }
 
   } elsif !$use_classic {
-    $command = 'subscription-manager register'
+    $command = '/usr/bin/subscription-manager register'
 
     $arguments = {
       'name'          => $rhn_register::name,
@@ -132,15 +132,15 @@ class rhn_register (
   }
 
   $final_args = delete_undef_values($arguments)
-  $command_args = command_args($final_args)
+  $command_flags = command_args($final_args)
 
   if $rhn_register::force {
     exec { 'register_with_rhn':
-      command => "${command} --force ${rhn_register::command_args}",
+      command => "${command} --force ${rhn_register::command_flags}",
     }
   } else {
     exec { 'register_with_rhn':
-      command => "${command}${rhn_register::command_args}",
+      command => "${command} ${rhn_register::command_flags}",
       creates => '/etc/sysconfig/rhn/systemid',
     }
   }

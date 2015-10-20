@@ -47,7 +47,7 @@ describe 'rhn_register', :type => 'class' do
       :password => 'test',
     } end
 
-    it { expect { should raise_error(Puppet::Error, /You can't register Ubuntu with RHN or Satellite using this puppet moudle/) }}
+    it { expect { should raise_error(Puppet::Error, /You can't register Ubuntu with RHN or Satellite using this puppet module/) }}
 
   end
 end
