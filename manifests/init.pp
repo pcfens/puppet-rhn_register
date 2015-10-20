@@ -1,7 +1,8 @@
 # == Class: rhn_register
 #
 # This class registers a machine with RHN or a Satellite Server.  If a machine
-# is already registered it does nothing unless the force parameter is set to true.
+# is already registered it does nothing unless the force parameter is set to
+# true.
 #
 # === Parameters:
 #
@@ -22,13 +23,14 @@
 #   [*packages*]
 #     Whether or not packages information should be probed (default: true)
 #   [*virtinfo*]
-#     Whether or not virtualiztion information should be uploaded (default: true)
+#     Whether or not virtualiztion information should be uploaded
+#     (default: true)
 #   [*rhnsd*]
 #     Whether or not rhnsd should be started after registering (default: true)
 #   [*force*]
-#     Should the registration be forced.  Use this option with caution, setting it
-#     to true will cause the rhnreg_ks command to be run every time puppet runs
-#     (default: false)
+#     Should the registration be forced.  Use this option with caution, setting
+#     it to true will cause the rhnreg_ks command to be run every time puppet
+#     runs (default: false)
 #   [*proxy*]
 #     If needed, specify the HTTP Proxy
 #   [*proxyuser*]
@@ -58,6 +60,7 @@
 # Phil Fenstermacher <pcfens@wm.edu>
 #
 class rhn_register (
+  $use_classic   = true,
   $profilename   = undef,
   $username      = undef,
   $password      = undef,
@@ -72,18 +75,17 @@ class rhn_register (
   $proxypass     = undef,
   $sslca         = undef,
   $serverurl     = undef,
-
-  $use_classic   = false,
   $insecure      = false,
   $base_url      = undef,
-  $type          = undef,
+  $unit_type     = undef,
   $system_name   = undef,
   $consumer_id   = undef,
   $org           = undef,
   $release       = undef,
   $auto_attach   = true,
-  $service_level = undef
-){
+  $service_level = undef,
+) {
+
   if $::osfamily != 'RedHat' {
     fail("You can't register ${::operatingsystem} with RHN or Satellite using this puppet module")
   }
@@ -115,12 +117,12 @@ class rhn_register (
     $command = '/usr/bin/subscription-manager register'
 
     $arguments = {
-      'name'          => $rhn_register::name,
+      'name'          => $rhn_register::system_name,
       'proxyuser'     => $rhn_register::proxyuser,
       'proxypassword' => $rhn_register::proxypass,
       'insecure'      => $rhn_register::insecure,
       'baseurl'       => $rhn_register::base_url,
-      'typeid'        => $rhn_register::type,
+      'typeid'        => $rhn_register::unit_type,
       'consumerid'    => $rhn_register::consumer_id,
       'org'           => $rhn_register::org,
       'environment'   => $rhn_register::environment,

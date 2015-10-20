@@ -1,5 +1,6 @@
 fixtures:
   repositories:
     command_args: "git://github.com/pcfens/puppet-command_args.git"
+    stdlib: "git://github.com/puppetlabs/puppetlabs-stdlib.git"
   symlinks:
     rhn_register: "#{source_dir}"

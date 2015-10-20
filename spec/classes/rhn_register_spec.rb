@@ -14,7 +14,7 @@ describe 'rhn_register', :type => 'class' do
       } end
 
       it { should contain_exec('register_with_rhn').with(
-        :command => '/usr/sbin/rhnreg_ks --username test --password test'
+        :command => '/usr/sbin/rhnreg_ks --username=test --password=test'
       ) }
     end
 
@@ -26,7 +26,7 @@ describe 'rhn_register', :type => 'class' do
       } end
 
       it { should contain_exec('register_with_rhn').with(
-        :command => '/usr/sbin/rhnreg_ks --username test --password test --serverUrl http://example.com/XMLRPC'
+        :command => '/usr/sbin/rhnreg_ks --username=test --password=test --serverUrl=http://example.com/XMLRPC'
       ) }
     end
 

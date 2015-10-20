@@ -8,6 +8,7 @@
   "project_page": "https://github.com/pcfens/puppet-rhn_register",
   "issues_url": "https://github.com/pcfens/puppet-rhn_register/issues",
   "description": "A module to register a server with RHN, Spacewalk, or Satellite.",
+  "tags": ["rhn", "rhn_register", "subscription-manager", "satellite", "spacewalk"],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
