@@ -1,64 +1,4 @@
 # == Class: rhn_register
-#
-# This class registers a machine with RHN or a Satellite Server.  If a machine
-# is already registered it does nothing unless the force parameter is set to
-# true.
-#
-# === Parameters:
-#
-# The class supports nearly all of the parameters supported by rhnreg_ks
-#
-#   [*profilename*]
-#     The name the system should use in RHN or Satellite
-#   [*username*]
-#     The username to use when registering the system
-#   [*password*]
-#     The password to use when registering the system
-#   [*activationkey*]
-#     The activation key to use when registering the system (cannot be used with
-#     username and password) - This is the recommended way so that credentials
-#     aren't stored in reports.
-#   [*hardware*]
-#     Whether or not the hardware information should be probed (default: true)
-#   [*packages*]
-#     Whether or not packages information should be probed (default: true)
-#   [*virtinfo*]
-#     Whether or not virtualiztion information should be uploaded
-#     (default: true)
-#   [*rhnsd*]
-#     Whether or not rhnsd should be started after registering (default: true)
-#   [*force*]
-#     Should the registration be forced.  Use this option with caution, setting
-#     it to true will cause the rhnreg_ks command to be run every time puppet
-#     runs (default: false)
-#   [*proxy*]
-#     If needed, specify the HTTP Proxy
-#   [*proxyuser*]
-#     Username to use for the proxy server
-#   [*proxypass*]
-#     Password to use for the proxy server
-#   [*sslca*]
-#     Path to the SSL CA to use.  If needed, it usually looks like
-#     /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
-#   [*serverurl*]
-#     URL to the server to register with
-#
-# === Examples
-#
-# class { 'rhn_register':
-#    sslca         => '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT',
-#    serverurl     => 'https://my-satellite-server.example.com/XMLRPC',
-#    activationkey => '1-activationkeyiwanttouse',
-# }
-#
-# class { 'rhn_register':
-#    activationkey => '1-activationkeyiwanttouseforrhn',
-# }
-#
-# === Authors
-#
-# Phil Fenstermacher <pcfens@wm.edu>
-#
 class rhn_register (
   $use_classic    = true,
   $profilename    = undef,
@@ -87,6 +27,13 @@ class rhn_register (
   $service_level  = undef,
   $environment    = undef,
 ) {
+
+  validate_bool($use_classic, $hardware, $packages, $virtinfo, $rhnsd, $force, $insecure, $auto_attach, $auto_subscribe)
+
+  # This only works because undef passes validate_string:
+  validate_string($profilename, $username, $password, $activationkey, $proxy, $proxyuser, $proxypass)
+  validate_string($sslca, $serverurl, $base_url, $unit_type, $system_name, $consumer_id, $org, $release)
+  validate_string($service_level, $environment)
 
   if $::osfamily != 'RedHat' {
     fail("You can't register ${::operatingsystem} with RHN or Satellite using this puppet module")
@@ -122,6 +69,7 @@ class rhn_register (
       'name'          => $rhn_register::system_name,
       'username'      => $rhn_register::username,
       'password'      => $rhn_register::password,
+      'activationkey' => $rhn_register::activationkey,
       'serverurl'     => $rhn_register::serverurl,
       'proxy'         => $rhn_register::proxy,
       'proxyuser'     => $rhn_register::proxyuser,
