@@ -45,6 +45,7 @@ class rhn_register (
 
   if $use_classic {
     $command = '/usr/sbin/rhnreg_ks'
+    $creates_file = '/etc/sysconfig/rhn/systemid'
 
     $arguments = {
       'profilename'   => $rhn_register::profilename,
@@ -64,6 +65,7 @@ class rhn_register (
 
   } elsif !$use_classic {
     $command = '/usr/bin/subscription-manager register'
+    $creates_file = '/etc/pki/consumer/cert.pem'
 
     $arguments = {
       'name'          => $rhn_register::system_name,
@@ -98,7 +100,7 @@ class rhn_register (
   } else {
     exec { 'register_with_rhn':
       command => "${command} ${rhn_register::command_flags}",
-      creates => '/etc/sysconfig/rhn/systemid',
+      creates => $creates_file,
     }
   }
 }
