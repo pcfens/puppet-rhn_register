@@ -5,6 +5,9 @@ puppet-rhn_register
 
 ## Overview
 
+Version 1.5 of this module is a fairly major overhaul, but should still be backwards compatible (but you should still test
+things first).
+
 Registers a machine with RHN or a satellite server.  If a machine
 is already registered then nothing happens, unless the force
 parameter is set to true.
