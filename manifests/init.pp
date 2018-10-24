@@ -95,11 +95,11 @@ class rhn_register (
 
   if $rhn_register::force {
     exec { 'register_with_rhn':
-      command => "${command} --force ${rhn_register::command_flags}",
+      command => "${command} --force ${command_flags}",
     }
   } else {
     exec { 'register_with_rhn':
-      command => "${command} ${rhn_register::command_flags}",
+      command => "${command} ${command_flags}",
       creates => $creates_file,
     }
   }
