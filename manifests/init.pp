@@ -1,39 +1,32 @@
 # == Class: rhn_register
 class rhn_register (
-  $use_classic    = true,
-  $profilename    = undef,
-  $username       = undef,
-  $password       = undef,
-  $activationkey  = undef,
-  $hardware       = true,
-  $packages       = true,
-  $virtinfo       = true,
-  $rhnsd          = true,
-  $force          = false,
-  $proxy          = undef,
-  $proxyuser      = undef,
-  $proxypass      = undef,
-  $sslca          = undef,
-  $serverurl      = undef,
-  $insecure       = false,
-  $base_url       = undef,
-  $unit_type      = undef,
-  $system_name    = undef,
-  $consumer_id    = undef,
-  $org            = undef,
-  $release        = undef,
-  $auto_attach    = true,
-  $auto_subscribe = false,
-  $service_level  = undef,
-  $environment    = undef,
+  Boolean           $use_classic    = true,
+  Optional[String]  $profilename    = undef,
+  Optional[String]  $username       = undef,
+  Optional[String]  $password       = undef,
+  Optional[String]  $activationkey  = undef,
+  Boolean           $hardware       = true,
+  Boolean           $packages       = true,
+  Boolean           $virtinfo       = true,
+  Boolean           $rhnsd          = true,
+  Boolean           $force          = false,
+  Optional[String]  $proxy          = undef,
+  Optional[String]  $proxyuser      = undef,
+  Optional[String]  $proxypass      = undef,
+  Optional[String]  $sslca          = undef,
+  Optional[String]  $serverurl      = undef,
+  Boolean           $insecure       = false,
+  Optional[String]  $base_url       = undef,
+  Optional[String]  $unit_type      = undef,
+  Optional[String]  $system_name    = undef,
+  Optional[String]  $consumer_id    = undef,
+  Optional[String]  $org            = undef,
+  Optional[String]  $release        = undef,
+  Boolean           $auto_attach    = true,
+  Boolean           $auto_subscribe = false,
+  Optional[String]  $service_level  = undef,
+  Optional[String]  $environment    = undef,
 ) {
-
-  validate_bool($use_classic, $hardware, $packages, $virtinfo, $rhnsd, $force, $insecure, $auto_attach, $auto_subscribe)
-
-  # This only works because undef passes validate_string:
-  validate_string($profilename, $username, $password, $activationkey, $proxy, $proxyuser, $proxypass)
-  validate_string($sslca, $serverurl, $base_url, $unit_type, $system_name, $consumer_id, $org, $release)
-  validate_string($service_level, $environment)
 
   if $::osfamily != 'RedHat' {
     fail("You can't register ${::operatingsystem} with RHN or Satellite using this puppet module")
