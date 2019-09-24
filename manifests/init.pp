@@ -83,7 +83,7 @@ class rhn_register (
 
   }
 
-  $final_args = delete_undef_values($arguments)
+  $final_args = $arguments.filter |$key, $val| { $val =~ NotUndef }
   $command_flags = command_args($final_args)
 
   if $rhn_register::force {
