@@ -7,8 +7,16 @@
   "source": "https://github.com/pcfens/puppet-rhn_register",
   "project_page": "https://github.com/pcfens/puppet-rhn_register",
   "issues_url": "https://github.com/pcfens/puppet-rhn_register/issues",
-  "description": "A module to register a server with RHN, Spacewalk, or Satellite.",
-  "tags": ["rhn", "rhn_register", "subscription-manager", "satellite", "spacewalk"],
+  "dependencies": [
+    {
+      "name": "pcfens/command_args",
+      "version_requirement": ">= 0.0.1 < 1.0.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.2.0 < 6.0.0"
+    }
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
@@ -19,14 +27,21 @@
       ]
     }
   ],
-  "dependencies": [
+  "requirements": [
     {
-      "name": "pcfens/command_args",
-      "version_requirement": ">= 0.0.1 < 1.0.0"
-    },
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.2.0 < 6.0.0"
+      "name": "puppet",
+      "version_requirement": ">= 4.10.0 < 7.0.0"
     }
-  ]
+  ],
+  "description": "A module to register a server with RHN, Spacewalk, or Satellite.",
+  "tags": [
+    "rhn",
+    "rhn_register",
+    "subscription-manager",
+    "satellite",
+    "spacewalk"
+  ],
+  "pdk-version": "1.13.0",
+  "template-url": "pdk-default#1.13.0",
+  "template-ref": "1.13.0-0-g66e1443"
 }
