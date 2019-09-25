@@ -1,6 +1,6 @@
 {
   "name": "pcfens-rhn_register",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "author": "pcfens",
   "summary": "Register a server with RHN, Spacewalk, or Satellite.",
   "license": "Apache-2.0",
@@ -33,7 +33,6 @@
       "version_requirement": ">= 4.10.0 < 7.0.0"
     }
   ],
-  "description": "A module to register a server with RHN, Spacewalk, or Satellite.",
   "tags": [
     "rhn",
     "rhn_register",
