@@ -1,6 +1,6 @@
 {
   "name": "pcfens-rhn_register",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "author": "pcfens",
   "summary": "Register a server with RHN, Spacewalk, or Satellite.",
   "license": "Apache-2.0",
@@ -30,7 +30,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.10.0 < 7.0.0"
+      "version_requirement": ">= 4.10.0 < 8.0.0"
     }
   ],
   "tags": [
