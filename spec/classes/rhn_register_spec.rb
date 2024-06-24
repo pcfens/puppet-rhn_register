@@ -4,8 +4,7 @@ describe 'rhn_register' do
   context 'On a RedHat system' do
     let :facts do
       {
-        osfamily: 'RedHat',
-        operatingsystem: 'RedHat',
+        os: {family: 'RedHat', name: 'RedHat'},
       }
     end
 
@@ -106,8 +105,7 @@ describe 'rhn_register' do
   context 'On an Ubuntu system' do
     let :facts do
       {
-        osfamily: 'Debian',
-        operatingsystem: 'Ubuntu',
+        os: {family: 'Debian', name: 'Ubuntu'},
       }
     end
 

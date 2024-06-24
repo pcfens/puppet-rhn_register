@@ -28,8 +28,8 @@ class rhn_register (
   Optional[String]  $environment    = undef,
 ) {
 
-  if $::osfamily != 'RedHat' {
-    fail("You can't register ${::operatingsystem} with RHN or Satellite using this puppet module")
+  if $facts['os']['family'] != 'RedHat' {
+    fail("You can't register ${facts['os']['name']} with RHN or Satellite using this puppet module")
   }
 
   if $rhn_register::username == undef and $rhn_register::activationkey == undef or $activationkey == [] {
